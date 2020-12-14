@@ -6,7 +6,7 @@ const fbConfig = {
     storageBucket: process.env.REACT_APP_FB_SB,
     messagingSenderId: process.env.REACT_APP_FB_MSID,
     appId: process.env.REACT_APP_FB_APPID,
-    measurementId: process.env.
+    measurementId: process.env.REACT_APP_FB_MID
 }
 
 export default fbConfig;
