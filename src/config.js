@@ -1,4 +1,6 @@
-const fbConfig = {
+import firebase from "firebase";
+
+export const fbConfig = {
     apiKey: process.env.REACT_APP_FB_APIKey,
     authDomain: process.env.REACT_APP_FB_AUTHD,
     databaseURL: process.env.REACT_APP_FB_DBURL,
@@ -9,4 +11,7 @@ const fbConfig = {
     measurementId: process.env.REACT_APP_FB_MID
 }
 
-export default fbConfig;
+
+const initFirebase = firebase.initializeApp(fbConfig);
+export const db = initFirebase.firestore();
+

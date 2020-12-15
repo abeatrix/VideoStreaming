@@ -11,7 +11,8 @@ import {
   listenToConnectionEvents,
 } from "./RTCModule";
 import firebase from "firebase/app";
-import fbConfig from "../config";
+// import fbConfig from "../config";
+import {fbConfig} from '../config'
 import VideoChat from "./VideoChat";
 import { doOffer, doAnswer, doLogin, doCandidate } from "./FBModule";
 import "webrtc-adapter";
@@ -31,7 +32,9 @@ export default class VideoChatContainer extends Component {
 
   componentDidMount = async () => {
     //initialize firebase
-    firebase.initializeApp(fbConfig);
+    if(!firebase.apps.length){
+      firebase.initializeApp(fbConfig);
+    }
 
     //getting local video stream
     const localStream = await initiateLocalStream();

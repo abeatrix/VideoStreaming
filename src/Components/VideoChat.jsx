@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../App.css'
 import 'firebase/database'
 import classnames from 'classnames'
+import TextChatContainer from './TextChatContainer'
 
 export default class VideoChat extends React.Component {
     constructor (props) {
@@ -59,9 +60,9 @@ export default class VideoChat extends React.Component {
 
     render () {
       return <section id="container">
-        {this.props.connectedUser ? null : this.renderForms()}
+        {this.props.connectedUser ? this.renderForms() : this.renderForms()}
         {this.renderVideos()}
-
+        {this.props.connectedUser ? <TextChatContainer sender={this.props.connectedUser}/> : null}
       </section>
     }
   }

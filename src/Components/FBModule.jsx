@@ -4,7 +4,7 @@ export const doLogin = async (username, database, handleUpdate) => {
     await database.ref('/notifs/' + username).remove()
 
     database.ref('/notifs/' + username).on('value', snapshot => {
-        snapshot.exists() && handleUpdate(snapshot.val().username)
+        snapshot.exists() && handleUpdate(snapshot.val(), username)
     });
 }
 
