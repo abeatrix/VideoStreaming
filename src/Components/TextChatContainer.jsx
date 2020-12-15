@@ -1,52 +1,61 @@
-import React from 'react'
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import {useState} from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import {db} from '../config'
+import React from "react";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { useState } from "react";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { db } from "../config";
 
 export default function TextChatContainer(props) {
-    const messagesRef = db.collection('messages');
-    const query = messagesRef.orderBy('createdAt').limit(25);
+  const messagesRef = db.collection("messages");
 
-    const [ messages ] = useCollectionData(query, {idField: 'id'});
+  const query = messagesRef.orderBy("createdAt").limit(25);
 
-    const [formValue, setFormValue] = useState('');
+  const [messages] = useCollectionData(query, { idField: "id" });
 
-    const sendMessage = async(e) => {
-        e.preventDefault();
+  const [formValue, setFormValue] = useState("");
 
-        await messagesRef.add({
-          text: formValue,
-          sender: props.sender,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        });
+  const sendMessage = async (e) => {
 
-        setFormValue('');
-      }
+    e.preventDefault();
 
-    return (
+    await messagesRef.add({
+      text: formValue,
+      sender: props.sender,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+
+    setFormValue("");
+
+  };
+
+  return (
+    <div>
+      <main>
         <div>
-<main>
-        <div>
-          {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+          {messages &&
+            messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
         </div>
       </main>
       <form onSubmit={sendMessage}>
-        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
-        <button type='submit'>Submit</button>
+        <input
+          value={formValue}
+          onChange={(e) => setFormValue(e.target.value)}
+        />
+        <button type="submit">Submit</button>
       </form>
-        </div>
-    )
+    </div>
+  );
 }
 
 function ChatMessage(props) {
-    const {text, photoURL, sender} = props.message;
+  const { text, photoURL, sender } = props.message;
 
-    return (
-      <div>
-        <img src={photoURL} />
-        <p>{sender}: {text}</p>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <img src={photoURL} />
+      <p>
+        {sender}: {text}
+      </p>
+    </div>
+  );
+}
