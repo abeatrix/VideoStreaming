@@ -62,7 +62,7 @@ export default class VideoChat extends React.Component {
       return <section id="container">
         {this.props.connectedUser ? this.renderForms() : this.renderForms()}
         {this.renderVideos()}
-        {this.props.connectedUser ? <TextChatContainer sender={this.props.connectedUser}/> : null}
+        {this.props.connectedUser ? <TextChatContainer sender={this.state.username}/> : null}
       </section>
     }
   }
