@@ -40,18 +40,19 @@ export const initiateConnection = async () => {
 }
 
 export const listenToConnectionEvents = (conn, username, remoteUsername, database, remoteVideoRef, doCandidate) => {
-    // listen for ice candidates
-    conn.onicecandidate = function (e) {
-        if (e.candidate){
-            doCandidate(remoteUsername, e.candidate, database, username) //remoteUsername from parameters
-        }
+//   listen for ice event
+    conn.onicecandidate = function (event) {
+    if (event.candidate) {
+      doCandidate(remoteUsername, event.candidate, database, username)
     }
-    //when a remote user adds stream to the peer connection, we display it
-    conn.ontrack = function(e) {
-        if (remoteVideoRef.srcObject !== e.streams[0]) {
-            remoteVideoRef.srcObject = e.streams[0]
-          }
+  }
+
+  // when a remote user adds stream to the peer connection, we display it
+  conn.ontrack = function (e) {
+    if (remoteVideoRef.srcObject !== e.streams[0]) {
+      remoteVideoRef.srcObject = e.streams[0]
     }
+  }
 }
 
 export const sendAnswer = async (conn, localStream, notif, doAnswer, database, username) => {
@@ -77,6 +78,7 @@ export const sendAnswer = async (conn, localStream, notif, doAnswer, database, u
 }
 
 export const startCall = (conn, notif) => {
+    console.log(notif)
     // it should be called when we receive an answer from other peer to start the call
     const answer = JSON.parse(notif.answer)
     // and set remote the description

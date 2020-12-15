@@ -22,8 +22,8 @@ export default class VideoChat extends React.Component {
     }
 
     onStartCallClicked = () => {
-        console.log(this.state.userToCall)
-      this.props.startCall(this.state.username, this.state.userToCall)
+        // console.log(this.state.userToCall)
+        this.props.startCall(this.state.username, this.state.userToCall)
     }
 
     renderVideos = () => {
@@ -47,7 +47,6 @@ export default class VideoChat extends React.Component {
           <label>Call to</label>
           <input value={this.state.userToCall} type="text" onChange={e => this.setState({ userToCall: e.target.value })} />
           <button onClick={this.onStartCallClicked} id="call-btn" className="btn btn-primary">Call</button>
-
         </div>
         : <div key='b' className='form'>
           <label>Type a name</label>
@@ -61,7 +60,6 @@ export default class VideoChat extends React.Component {
     render () {
       return <section id="container">
         {this.props.connectedUser ? null : this.renderForms()}
-
         {this.renderVideos()}
 
       </section>
