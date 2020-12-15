@@ -6,8 +6,8 @@ export const createOffer = async (connection, localStream, userToCall, doOffer, 
       await connection.setLocalDescription(offer)
 
       doOffer(userToCall, offer, database, username)
-    } catch (exception) {
-      console.error(exception)
+    } catch (e) {
+      console.error(e)
     }
   }
 
@@ -18,22 +18,22 @@ export const createOffer = async (connection, localStream, userToCall, doOffer, 
         audio: true
       })
       return stream
-    } catch (exception) {
-      console.error(exception)
+    } catch (e) {
+      console.error(e)
     }
   }
   export const initiateConnection = async () => {
     try {
       // using Google public stun server
-      var configuration = {
+      var config = {
         iceServers: [{ urls: 'stun:stun2.1.google.com:19302' }]
       }
 
-      const conn = new RTCPeerConnection(configuration)
+      const conn = new RTCPeerConnection(config)
 
       return conn
-    } catch (exception) {
-      console.error(exception)
+    } catch (e) {
+      console.error(e)
     }
   }
 
@@ -44,8 +44,9 @@ export const createOffer = async (connection, localStream, userToCall, doOffer, 
       }
     }
 
-    // when a remote user adds stream to the peer connection, we display it
+    // display remote user when add stream to the peer connection
     conn.ontrack = function (e) {
+      console.log(conn)
       if (remoteVideoRef.srcObject !== e.streams[0]) {
         remoteVideoRef.srcObject = e.streams[0]
       }
@@ -54,6 +55,7 @@ export const createOffer = async (connection, localStream, userToCall, doOffer, 
 
   export const sendAnswer = async (conn, localStream, notif, doAnswer, database, username) => {
     try {
+      // console.log(conn)
       conn.addStream(localStream)
 
       const offer = JSON.parse(notif.offer)
@@ -64,18 +66,18 @@ export const createOffer = async (connection, localStream, userToCall, doOffer, 
       conn.setLocalDescription(answer)
 
       doAnswer(notif.from, answer, database, username)
-    } catch (exception) {
-      console.error(exception)
+    } catch (e) {
+      console.error(e)
     }
   }
 
-  export const startCall = (yourConn, notif) => {
+  export const startCall = (conn, notif) => {
     const answer = JSON.parse(notif.answer)
-    yourConn.setRemoteDescription(answer)
+    conn.setRemoteDescription(answer)
   }
 
-  export const addCandidate = (yourConn, notif) => {
+  export const addCandidate = (conn, notif) => {
     // apply the new received candidate to the connection
     const candidate = JSON.parse(notif.candidate)
-    yourConn.addIceCandidate(new RTCIceCandidate(candidate))
+    conn.addIceCandidate(new RTCIceCandidate(candidate))
   }

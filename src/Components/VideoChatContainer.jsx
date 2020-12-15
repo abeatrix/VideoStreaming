@@ -11,7 +11,6 @@ import {
   listenToConnectionEvents,
 } from "./RTCModule";
 import firebase from "firebase/app";
-// import fbConfig from "../config";
 import {fbConfig} from '../config'
 import VideoChat from "./VideoChat";
 import { doOffer, doAnswer, doLogin, doCandidate } from "./FBModule";
