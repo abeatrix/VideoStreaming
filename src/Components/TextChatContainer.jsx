@@ -29,32 +29,34 @@ export default function TextChatContainer(props) {
   };
 
   return (
-    <div>
-      <main>
-        <div>
-          {messages &&
-            messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-        </div>
-      </main>
-      <form onSubmit={sendMessage}>
-        <input
+    <div style={{width: "500px", height: "300px"}}>
+      <form onSubmit={sendMessage} className="w-100 mt-5">
+        <textarea
+          className="w-100"
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}
-        />
-        <button type="submit">Submit</button>
+          rows="3"></textarea>
+        <div className="right my-3">
+          <button className="btn btn-outline-dark" type="submit">Submit</button>
+        </div>
+        <main className="w-100 mt-5">
+        <div className="chat-area">
+          {messages &&
+            messages.reverse().map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+        </div>
+      </main>
       </form>
     </div>
   );
 }
 
 function ChatMessage(props) {
-  const { text, photoURL, sender } = props.message;
+  const { text, sender } = props.message;
 
   return (
     <div>
-      <img src={photoURL} />
       <p>
-        {sender}: {text}
+      <strong>{sender}:</strong> {text}
       </p>
     </div>
   );

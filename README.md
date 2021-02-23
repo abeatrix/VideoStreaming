@@ -1,5 +1,6 @@
-# React peer-to-peer server-less Video Call - WIP
-Utilizing firebase to establish WebRTC connection between two users
+# WIP - Interest Call
+A peer-to-peer server-less Video Call app built with React.
+Utilizing firebase to establish WebRTC connection between two users and connect them with shared interest
 
 ## Technologies Used
 - WebRTC

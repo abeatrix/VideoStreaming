@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 export const createOffer = async (
   connection,
   localStream,
@@ -14,7 +16,7 @@ export const createOffer = async (
 
     doOffer(userToCall, offer, database, username);
   } catch (e) {
-    console.error(e);
+    toast.error(e);
   }
 };
 
@@ -26,7 +28,7 @@ export const initiateLocalStream = async () => {
     });
     return stream;
   } catch (e) {
-    console.error(e);
+    toast.error(e);
   }
 };
 export const initiateConnection = async () => {
@@ -44,7 +46,7 @@ export const initiateConnection = async () => {
 
     return conn;
   } catch (e) {
-    console.error(e);
+    toast.error(e);
   }
 };
 
@@ -92,7 +94,7 @@ export const sendAnswer = async (
 
     doAnswer(notif.from, answer, database, username);
   } catch (e) {
-    console.error(e);
+    toast.error(e);
   }
 };
 
