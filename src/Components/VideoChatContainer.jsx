@@ -9,12 +9,14 @@ import {
   addCandidate,
   initiateLocalStream,
   listenToConnectionEvents,
-} from "./RTCModule";
+} from "../Helpers/RTC";
 import firebase from "firebase/app";
 import {fbConfig} from '../config'
 import VideoChat from "./VideoChat";
-import { doOffer, doAnswer, doLogin, doCandidate } from "./FBModule";
+import { doOffer, doAnswer, doLogin, doCandidate } from "../Helpers/FB";
 import "webrtc-adapter";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class VideoChatContainer extends Component {
   constructor(props) {
@@ -130,6 +132,8 @@ export default class VideoChatContainer extends Component {
 
   render() {
     return (
+      <>
+      <ToastContainer/>
       <VideoChat
         startCall={this.startCall}
         onLogin={this.onLogin}
@@ -137,6 +141,7 @@ export default class VideoChatContainer extends Component {
         setRemoteVideoRef={this.setRemoteVideoRef}
         connectedUser={this.state.connectedUser}
       />
+      </>
     );
   }
 }
